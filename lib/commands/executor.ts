@@ -12,6 +12,7 @@
  */
 import { Timeout } from "@/lib/http";
 import { pyStr } from "@/lib/pyjson";
+import { KeyErr, req, K, gd, pyOr } from "@/lib/commands/pyutil";
 import {
   ghApi,
   getFileSha,
@@ -45,34 +46,6 @@ function nowMs(): number {
   if (!FIX_TIME_BUG) throw new Error("name 'time' is not defined");
   return Date.now();
 }
-
-class KeyErr extends Error {
-  constructor(key: string) {
-    super(`'${key}'`); // str(KeyError('repo')) == "'repo'"
-    this.name = "KeyErr";
-  }
-}
-
-/** params["key"] */
-function req(params: Record<string, any>, key: string): any {
-  if (!Object.prototype.hasOwnProperty.call(params, key)) throw new KeyErr(key);
-  return params[key];
-}
-
-/** obj["key"] on API data (Python-jaise errors) */
-function K(o: any, key: string): any {
-  if (Array.isArray(o)) throw new Error("list indices must be integers or slices, not str");
-  if (o === null || o === undefined) throw new Error("'NoneType' object is not subscriptable");
-  if (typeof o !== "object" || !(key in o)) throw new KeyErr(key);
-  return o[key];
-}
-
-/** obj.get(key, default) */
-function gd(o: any, key: string, def: any = null): any {
-  return o !== null && o !== undefined && typeof o === "object" && key in o ? o[key] : def;
-}
-
-const pyOr = (v: any, d: any) => (v ? v : d);
 
 const VERCEL_CONNECT = {
   reply: "🔒 Pehle Vercel connect karo — user menu me 'Connect Vercel' dabao.",

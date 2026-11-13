@@ -9,14 +9,9 @@ import { post } from "@/lib/http";
 import { pyStr } from "@/lib/pyjson";
 import { NO_ARG_COMMANDS } from "@/lib/commands/intent_parser";
 import { executeCommand } from "@/lib/commands/executor";
+import { AIError } from "@/lib/commands/errors";
 
-/** Python RuntimeError ka jodi — chat route ise alag pakadta hai ("❌ AI Error: ..."). */
-export class AIError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "AIError";
-  }
-}
+export { AIError };
 
 // ════════════════════════════════════════════════════════════════
 const systemPrompt = (v: {
