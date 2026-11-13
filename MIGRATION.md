@@ -1,6 +1,6 @@
 # Easy DevOps: Flask -> Next.js (TypeScript) migration
 
-Status: Phase 4 done: frontend (layout, page, globals.css, public/script.js). Naya repo me migration ban raha hai.
+Status: Phase 5 done (cleanup docs). Migration complete. Naya repo me migration ban raha hai.
 
 ## Phases
 1. Inventory - done
@@ -39,3 +39,25 @@ Status: Phase 4 done: frontend (layout, page, globals.css, public/script.js). Na
 - components/ScriptLoader.tsx: public/script.js (original, unchanged) load karta hai aur DOMContentLoaded dispatch karta hai.
 - app/globals.css = easydevops-updated/style.css (maxDuration + .attach-sheet desktop card dono apply).
 - Faithful shim approach: script.js ke ~211 functions React state me nahi toote — UI/behavior 100% same. Baad me chahe to alag-alag components me todna possible hai.
+
+## Phase 5: GitHub web pe DELETE karne wali files (ZIP delete nahi kar sakta)
+
+MUST (warna build/deploy toot sakta hai):
+1. vercel.json            <- sabse zaroori, nahi to Vercel Python builder chalayega
+2. app.py
+3. requirements.txt
+4. server/                (poora folder: __init__.py, auth.py, config.py, db.py, firestore_db.py, security.py,
+                           commands/*, providers/*, routes/*)
+5. easydevops-updated/    (poora folder)
+6. index.html, script.js, style.css   (ab components/app-markup.ts, public/script.js, app/globals.css me hain)
+
+OPTIONAL (root ke duplicate static files — ab public/ me hain, Next root se serve nahi karta):
+android-chrome-192x192.png, android-chrome-512x512.png, apple-touch-icon.png, favicon-16x16.png,
+favicon-32x32.png, favicon-48x48.png, favicon.ico, logo-mark.png, robots.txt, sitemap.xml,
+site.webmanifest, googledecff8a97b3b7f45.html
+
+Folder delete: GitHub me folder kholo -> upar "..." -> "Delete directory".
+README.md aur .env.example is ZIP se overwrite ho jayenge.
+
+## Pending (tumhari 'haan' ka wait)
+- BUG-1: executor.ts me FIX_TIME_BUG = true (Vercel rollback / list deployments fix).
