@@ -1,11 +1,11 @@
 # Easy DevOps: Flask -> Next.js (TypeScript) migration
 
-Status: Phase 2 done (backend core). Flask app abhi bhi chal raha hai, kuch nahi toota.
+Status: Phase 3a done (confirmation + intent_parser). Naya repo me migration ban raha hai.
 
 ## Phases
 1. Inventory - done
 2. Backend core (lib/) - done: config, http shim, fernet, itsdangerous, db, auth, security, firestore, providers
-3. Commands (intent_parser, executor, confirmation, code_generate, bulk, render, env_transfer) - pending
+3. Commands: 3a confirmation + intent_parser (done) | 3b executor + ai_fallback | 3c code_generate, bulk, env_transfer, render_* | 3d chat/api/file routes
 4. API routes (/chat, /api/*, auth, sessions, files) - pending
 5. Frontend (script.js / style.css -> components) - pending
 6. vercel.json cutover + old Flask files hatana - pending
