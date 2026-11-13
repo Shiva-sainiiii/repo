@@ -1,6 +1,6 @@
 # Easy DevOps: Flask -> Next.js (TypeScript) migration
 
-Status: Phase 3 (3a-3d) done: commands + chat/api/file routes. Naya repo me migration ban raha hai.
+Status: Phase 4 done: frontend (layout, page, globals.css, public/script.js). Naya repo me migration ban raha hai.
 
 ## Phases
 1. Inventory - done
@@ -32,3 +32,10 @@ Status: Phase 3 (3a-3d) done: commands + chat/api/file routes. Naya repo me migr
   Fix: lib/commands/executor.ts me `FIX_TIME_BUG = true`.
 - Vercel request body limit ~4.5MB hai (Flask version me bhi same thi) - bade upload/zip pehle bhi fail hote the.
 - X-Env-Export-Warning header me em-dash '—' ko '-' kiya (Node headers sirf latin-1 lete hain).
+
+## Phase 4 notes (frontend)
+- app/layout.tsx: metadata/SEO/fonts (index.html <head> se), early AMOLED theme script.
+- app/page.tsx + components/app-markup.ts: index.html ka <body> markup bilkul same (inline onclick handlers waise hi).
+- components/ScriptLoader.tsx: public/script.js (original, unchanged) load karta hai aur DOMContentLoaded dispatch karta hai.
+- app/globals.css = easydevops-updated/style.css (maxDuration + .attach-sheet desktop card dono apply).
+- Faithful shim approach: script.js ke ~211 functions React state me nahi toote — UI/behavior 100% same. Baad me chahe to alag-alag components me todna possible hai.
